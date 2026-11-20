@@ -1,0 +1,19 @@
+name: ci45560
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        job: [1,2]
+    steps:
+      - uses: actions/checkout@v4
+      - name: probe
+        env:
+          JOB: ${{ matrix.job }}
+          TOPIC: i45560-a7c2
+        run: python3 probe.py
